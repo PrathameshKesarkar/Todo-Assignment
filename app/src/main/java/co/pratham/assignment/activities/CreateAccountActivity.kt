@@ -1,10 +1,11 @@
-package co.pratham.assignment
+package co.pratham.assignment.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import co.pratham.assignment.R
 import co.pratham.assignment.databinding.ActivityCreateAccountBinding
 import co.pratham.assignment.utils.RC_SIGNIN
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -37,16 +38,22 @@ class CreateAccountActivity : AppCompatActivity() {
         }
     }
 
-
-    override fun onStart() {
-        super.onStart()
-        val user = firebaseAuth.currentUser
-        checkUser(user)
+    override fun onResume() {
+        super.onResume()
+        firebaseAuth.addAuthStateListener {
+            if (it.currentUser != null){
+                checkUser(it.currentUser)
+            }
+        }
     }
+
 
     private fun checkUser(user: FirebaseUser?) {
         if (user != null) {
-            Toast.makeText(this, "User loggedIn successfull", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, TodoListActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
         }
     }
 
@@ -72,7 +79,6 @@ class CreateAccountActivity : AppCompatActivity() {
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val user = firebaseAuth.currentUser
-                checkUser(user)
             } else {
                 Log.w(TAG, "signInWithCredential:failure", task.exception)
 

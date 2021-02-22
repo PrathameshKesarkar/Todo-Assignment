@@ -1,9 +1,10 @@
-package co.pratham.assignment
+package co.pratham.assignment.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatActivity
+import co.pratham.assignment.R
 import com.google.firebase.auth.FirebaseAuth
 
 class SplashActivity : AppCompatActivity() {
@@ -14,8 +15,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-
-        countDown = object : CountDownTimer(2000, 1000) {
+        countDown = object : CountDownTimer(500, 250) {
             override fun onFinish() {
                 auth = FirebaseAuth.getInstance()
                 val currentUser = auth.currentUser
@@ -24,9 +24,11 @@ class SplashActivity : AppCompatActivity() {
                 if (currentUser == null) {
                     val intent = Intent(this@SplashActivity, CreateAccountActivity::class.java)
                     startActivity(intent)
-                    finish()
+                    finishActivity(5621)
                 } else {
-
+                    val intent = Intent(this@SplashActivity,TodoListActivity::class.java)
+                    startActivity(intent)
+                    finishActivity(5621)
                 }
             }
 
