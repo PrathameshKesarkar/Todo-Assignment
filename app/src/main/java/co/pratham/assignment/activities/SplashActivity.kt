@@ -26,11 +26,11 @@ class SplashActivity : AppCompatActivity() {
                 if (currentUser == null) {
                     val intent = Intent(this@SplashActivity, CreateAccountActivity::class.java)
                     startActivity(intent)
-                    finishActivity(5621)
+                    finish()
                 } else {
                     val intent = Intent(this@SplashActivity,TodoListActivity::class.java)
                     startActivity(intent)
-                    finishActivity(5621)
+                    finish()
                 }
             }
 

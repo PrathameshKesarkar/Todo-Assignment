@@ -79,7 +79,7 @@ class TodoListActivity : AppCompatActivity() {
                         auth.currentUser?.delete()
                         val intent = Intent(this,SplashActivity::class.java)
                         startActivity(intent)
-                        finishActivity(5644)
+                        finish()
                     }
                 }
                 return@setOnMenuItemClickListener true
