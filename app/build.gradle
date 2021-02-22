@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.gms.google-services'
+    id 'koin'
 }
 
 android {
@@ -53,5 +54,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'com.google.firebase:firebase-database-ktx'
+    implementation "org.koin:koin-core:2.2.2"
+    implementation "org.koin:koin-android:2.2.2"
 
 }

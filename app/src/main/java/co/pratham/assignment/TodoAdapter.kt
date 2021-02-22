@@ -3,6 +3,7 @@ package co.pratham.assignment
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import co.pratham.assignment.model.Todo
 import co.pratham.assignment.utils.inflate
 import com.google.android.material.textview.MaterialTextView
 

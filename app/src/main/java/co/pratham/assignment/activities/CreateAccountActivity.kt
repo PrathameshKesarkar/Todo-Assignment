@@ -9,37 +9,33 @@ import co.pratham.assignment.R
 import co.pratham.assignment.databinding.ActivityCreateAccountBinding
 import co.pratham.assignment.utils.RC_SIGNIN
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import org.koin.android.ext.android.inject
 
 class CreateAccountActivity : AppCompatActivity() {
 
     private val TAG = "CreateAccountActivity"
-    private val firebaseAuth by lazy { FirebaseAuth.getInstance() }
+
+    private val firebaseAuth:FirebaseAuth by inject()
+
+    private val googleSignInClient:GoogleSignInClient by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityCreateAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-
-        val googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         binding.btnSignin.setOnClickListener {
             val signInIntent = googleSignInClient.signInIntent
             startActivityForResult(signInIntent, RC_SIGNIN)
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
         firebaseAuth.addAuthStateListener {
             if (it.currentUser != null){
                 checkUser(it.currentUser)
@@ -79,6 +75,7 @@ class CreateAccountActivity : AppCompatActivity() {
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val user = firebaseAuth.currentUser
+                // User state change will automatically be triggered;
             } else {
                 Log.w(TAG, "signInWithCredential:failure", task.exception)
 

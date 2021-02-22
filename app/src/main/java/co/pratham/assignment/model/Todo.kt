@@ -1,4 +1,4 @@
-package co.pratham.assignment
+package co.pratham.assignment.model
 
 import androidx.annotation.Keep
 
